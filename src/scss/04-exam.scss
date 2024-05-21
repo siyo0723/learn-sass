@@ -1,0 +1,83 @@
+// padding 관련 믹스인
+
+@mixin padding-inline-start($value){
+  padding-left: $value;
+  padding-inline-start: $value;
+}
+@mixin padding-inline-end($value){
+  padding-right: $value;
+  padding-inline-end: $value;
+}
+@mixin padding-block-start($value){
+  padding-top: $value;
+  padding-block-start: $value;
+}
+@mixin padding-block-end($value){
+  padding-bottom: $value;
+  padding-block-end: $value;
+}
+
+@mixin paddingX($value){
+  @include padding-inline-start($value);
+  @include padding-inline-end($value);
+}
+@mixin paddingY($value){
+  @include padding-block-start($value);
+  @include padding-block-end($value);
+}
+
+@mixin padding($value){
+  @include paddingX($value);
+  @include paddingY($value);
+}
+
+.box{
+  @include paddingX(20px);
+}
+
+@mixin autoMargin{
+  margin-left: auto;
+  margin-right: auto;
+  margin-inline: auto;
+}
+
+@mixin flexCol{
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+@mixin size($width, $height: $width){
+  width: $width;
+  inline-size: $width;
+  height: $height;
+  block-size: $height;
+}
+
+@mixin a11yHidden($focusable: false) {
+	overflow: hidden;
+  position: absolute;
+  clip: rect(0,0,0,0);
+  clip-path: circle(0);
+  @include size(1px);
+	margin: -1px;
+	border: 0;
+	padding: 0;
+  white-space: nowrap;
+
+  @if $focusable {
+		&:focus {
+			overflow: initial;
+			position: initial;
+			clip: initial;
+			clip-path: initial;
+			@include size(initial);
+			margin: initial;
+			white-space: initial;
+		}
+	}
+}
+
+.container{
+  @include a11yHidden();
+  color: red;
+}
